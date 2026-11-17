@@ -180,7 +180,9 @@
     "title": "Paused",
     "resume": "Resume",
     "restart": "Restart",
-    "quit": "Levels"
+    "quit": "Levels",
+    "fullscreen": "Full screen",
+    "exitFullscreen": "Leave full screen"
   },
   "result": {
     "won": "Order filled!",
@@ -262,7 +264,8 @@
     "resetDo": "Erase",
     "cancel": "Cancel",
     "privacy": "Your progress stays on this device.",
-    "hd": "High-quality graphics"
+    "hd": "High-quality graphics",
+    "fullscreen": "Full screen"
   },
   "pwa": {
     "install": "Install",

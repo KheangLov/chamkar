@@ -10,6 +10,8 @@ export interface Settings {
   haptics: boolean
   /** Shadows, smooth edges and sharp pixels (off: faster on older phones). */
   hd: boolean
+  /** Play in full screen (entered on the first tap, since browsers need one). */
+  fullscreen: boolean
 }
 
 interface Saved {
@@ -22,7 +24,7 @@ interface Saved {
   settings: Settings
 }
 
-const DEFAULT_SETTINGS: Settings = { sound: true, music: true, haptics: true, hd: true }
+const DEFAULT_SETTINGS: Settings = { sound: true, music: true, haptics: true, hd: true, fullscreen: true }
 
 export const useProgressStore = defineStore('progress', () => {
   const loaded = ref(false)

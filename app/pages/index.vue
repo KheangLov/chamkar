@@ -7,6 +7,7 @@ const gateway = useGateway()
 const progress = useProgressStore()
 const reduced = useReducedMotion()
 const settingsOpen = ref(false)
+const fullscreen = useFullscreen()
 
 const n = (value: number) => localNumber(value, locale.value)
 const nextLevel = computed(() => progress.unlocked)
@@ -29,6 +30,19 @@ const playLabel = computed(() => {
         @click="gateway.exit()"
       />
       <PwaInstallButton v-if="!gateway.inGateway" />
+      <button
+        v-if="fullscreen.supported.value"
+        type="button"
+        class="btn-icon"
+        :aria-label="fullscreen.active.value ? t('pause.exitFullscreen') : t('pause.fullscreen')"
+        :aria-pressed="fullscreen.active.value"
+        @click="fullscreen.toggle()"
+      >
+        <UIcon
+          :name="fullscreen.active.value ? 'i-lucide-minimize' : 'i-lucide-maximize'"
+          class="size-5"
+        />
+      </button>
       <button
         type="button"
         class="btn-icon"

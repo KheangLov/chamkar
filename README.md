@@ -13,6 +13,8 @@ files.
 - **Stars for speed**: finish an order within the three-star time, or the two-star time. There is no
   losing: every level can be finished, and if you're ever left with nothing, Ta gives you a chicken.
 - **Saved on the device**: progress, best times and settings stay in the browser (localStorage).
+- **Full screen**: on phones and tablets the first tap goes full screen (Settings or the ⛶ button turns it
+  off); installed, it opens full screen. iPhone has no full screen for web pages: Add to Home Screen instead.
 - **Installable and offline**: once opened, it plays with no connection.
 - **Plays inside the [gaming gateway](https://github.com/KheangLov/gaming-gateway)**, loaded with
   Module Federation (`modules/gateway-remote/`, the same folder as in the other games).

@@ -113,7 +113,9 @@ export default defineNuxtConfig({
       lang: 'km',
       theme_color: '#0d2318',
       background_color: '#07140d',
-      display: 'standalone',
+      // Installed, it opens full screen (no status bar); where that isn't offered, as an app window.
+      display: 'fullscreen',
+      display_override: ['fullscreen', 'standalone'],
       // The farm turns to fit the screen, so the phone can be held either way.
       orientation: 'any',
       start_url: '/',

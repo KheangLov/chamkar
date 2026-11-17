@@ -7,16 +7,21 @@ const emit = defineEmits<{ change: [key: keyof Settings, value: boolean] }>()
 const { t } = useI18n()
 const progress = useProgressStore()
 const confirmReset = ref(false)
+const fullscreen = useFullscreen()
 
 const toggles = computed(() => ([
   { key: 'sound', icon: 'i-lucide-volume-2', label: t('settings.sound') },
   { key: 'music', icon: 'i-lucide-music', label: t('settings.music') },
   { key: 'haptics', icon: 'i-lucide-vibrate', label: t('settings.haptics') },
   { key: 'hd', icon: 'i-lucide-sparkles', label: t('settings.hd') },
+  // Only where the browser can do it (not on iPhone, where Add to Home Screen does it).
+  ...(fullscreen.supported.value ? [{ key: 'fullscreen', icon: 'i-lucide-maximize', label: t('settings.fullscreen') }] as const : []),
 ] as const))
 
 function set(key: keyof Settings, value: boolean) {
   progress.setSetting(key, value)
+  // Switched from a tap, so the browser allows it now.
+  if (key === 'fullscreen') void (value ? enterFullscreen() : exitFullscreen())
   emit('change', key, value)
 }
 

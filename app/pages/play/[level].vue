@@ -30,6 +30,7 @@ const engine = shallowRef<Engine | null>(null)
 const paused = ref(false)
 const marketOpen = ref(false)
 const settingsOpen = ref(false)
+const fullscreen = useFullscreen()
 const board = ref<InstanceType<typeof GameBoard> | null>(null)
 
 // Top bar values (updated from the frame loop only when they change).
@@ -606,6 +607,19 @@ onBeforeUnmount(() => {
                   class="size-5"
                 />
                 {{ t('pause.quit') }}
+              </button>
+              <button
+                v-if="fullscreen.supported.value"
+                type="button"
+                class="btn-game ghost"
+                :aria-label="fullscreen.active.value ? t('pause.exitFullscreen') : t('pause.fullscreen')"
+                :aria-pressed="fullscreen.active.value"
+                @click="fullscreen.toggle()"
+              >
+                <UIcon
+                  :name="fullscreen.active.value ? 'i-lucide-minimize' : 'i-lucide-maximize'"
+                  class="size-5"
+                />
               </button>
               <button
                 type="button"
