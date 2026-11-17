@@ -14,20 +14,6 @@ const playLabel = computed(() => {
   if (!progress.loaded || progress.cleared === 0) return t('home.start')
   return t('home.continue', { level: localDigits(levelLabel(nextLevel.value), locale.value) })
 })
-
-/** The hero's cast: Srey and Ta with the animals, each bobbing on its own beat. */
-const cast = [
-  { name: 'chicken', size: 'size-12 sm:size-20 landscape:max-lg:size-12', delay: 0 },
-  { name: 'srey', size: 'size-16 sm:size-28 landscape:max-lg:size-16', delay: 0.4 },
-  { name: 'duck', size: 'size-12 sm:size-20 landscape:max-lg:size-12', delay: 0.2 },
-  { name: 'cow', size: 'size-16 sm:size-28 landscape:max-lg:size-16', delay: 0.8 },
-  { name: 'ta', size: 'size-16 sm:size-28 landscape:max-lg:size-16', delay: 0.6 },
-  { name: 'truck', size: 'size-16 sm:size-28 landscape:max-lg:size-16', delay: 1 },
-] as const
-
-const float = (delay: number) => reduced.value
-  ? {}
-  : { animate: { y: [0, -8, 0] }, transition: { duration: 2.4, repeat: Infinity, ease: 'easeInOut' as const, delay } }
 </script>
 
 <template>
@@ -77,26 +63,6 @@ const float = (delay: number) => reduced.value
           {{ t('app.tagline') }}
         </p>
       </motion.div>
-
-      <div
-        class="flex w-full max-w-3xl items-end justify-center gap-1 overflow-x-clip sm:gap-3 landscape:max-lg:max-w-xl"
-        aria-hidden="true"
-      >
-        <motion.div
-          v-for="(who, i) in cast"
-          :key="who.name"
-          :initial="reduced ? false : { opacity: 0, y: 40, scale: 0.6 }"
-          :animate="{ opacity: 1, y: 0, scale: 1 }"
-          :transition="{ type: 'spring', stiffness: 220, damping: 15, delay: 0.15 + i * 0.1 }"
-        >
-          <motion.div v-bind="float(who.delay)">
-            <SpriteIcon
-              :name="who.name"
-              :class="who.size"
-            />
-          </motion.div>
-        </motion.div>
-      </div>
 
       <motion.div
         :initial="reduced ? false : { opacity: 0, y: 30 }"

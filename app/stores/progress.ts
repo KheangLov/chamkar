@@ -8,6 +8,8 @@ export interface Settings {
   sound: boolean
   music: boolean
   haptics: boolean
+  /** Shadows, smooth edges and sharp pixels (off: faster on older phones). */
+  hd: boolean
 }
 
 interface Saved {
@@ -20,7 +22,7 @@ interface Saved {
   settings: Settings
 }
 
-const DEFAULT_SETTINGS: Settings = { sound: true, music: true, haptics: true }
+const DEFAULT_SETTINGS: Settings = { sound: true, music: true, haptics: true, hd: true }
 
 export const useProgressStore = defineStore('progress', () => {
   const loaded = ref(false)

@@ -12,6 +12,7 @@ const toggles = computed(() => ([
   { key: 'sound', icon: 'i-lucide-volume-2', label: t('settings.sound') },
   { key: 'music', icon: 'i-lucide-music', label: t('settings.music') },
   { key: 'haptics', icon: 'i-lucide-vibrate', label: t('settings.haptics') },
+  { key: 'hd', icon: 'i-lucide-sparkles', label: t('settings.hd') },
 ] as const))
 
 function set(key: keyof Settings, value: boolean) {

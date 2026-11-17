@@ -74,6 +74,16 @@
   to { transform: translate3d(var(--dx, 20px), -10vh, 0); }
 }
 
+@keyframes fv-pulse {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.12; }
+}
+
+@keyframes fv-bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -4px; }
+}
+
 @keyframes blink {
   0%, 100% { opacity: 0.15; }
   50% { opacity: 0.9; }
@@ -280,6 +290,86 @@ svg {
     color: #c98a9a;
     box-shadow: 0 5px 0 #1f0a12;
   }
+
+  /* Labels laid over the 3D farm (app/game/three/farm.ts places them every frame). */
+  .farm-overlay > * {
+    position: absolute;
+    left: 0;
+    top: 0;
+    will-change: transform;
+    font-family: var(--font-display);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .fv-icon { display: inline-block; width: 1.6em; height: 1.6em; object-fit: contain; vertical-align: middle; }
+  .fv-icon.big { width: 2em; height: 2em; }
+  .fv-badge, .fv-price, .fv-popup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2em;
+    padding: 0.25em 0.6em;
+    border-radius: 999px;
+    font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+    color: #4a2e16;
+    background: linear-gradient(180deg, #fffaf0, #f3e2bc);
+    border: 2px solid #4e2e14;
+    box-shadow: 0 3px 0 #2e1a0a, 0 6px 14px rgb(0 0 0 / 0.25);
+  }
+  .fv-badge.full { color: #7a1030; background: linear-gradient(180deg, #ffd1dc, #ff9db0); animation: fv-pulse 0.9s ease-in-out infinite; }
+  .fv-badge.timer .fv-icon { width: 1.3em; height: 1.3em; }
+  .fv-price { flex-direction: column; gap: 0; padding: 0.2em 0.5em 0.3em; border-radius: 0.8em; font-size: clamp(0.7rem, 1.3vw, 0.95rem); color: #8a7a6a; filter: saturate(0.6); }
+  .fv-price span { display: inline-flex; align-items: center; }
+  .fv-price.ok { color: #5a3a00; filter: none; background: linear-gradient(180deg, #fff5c2, #ffd148); animation: fv-bob 1.4s ease-in-out infinite; }
+  .fv-popup { font-size: clamp(1rem, 2.2vw, 1.6rem); color: #5a3a00; background: linear-gradient(180deg, #fff5c2, #ffd148); }
+  .fv-bubble {
+    display: inline-flex;
+    gap: 0.1em;
+    padding: 0.25em 0.4em;
+    border-radius: 1em;
+    font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+    background: rgb(255 255 255 / 0.92);
+    border: 2px solid rgb(74 46 22 / 0.5);
+    box-shadow: 0 6px 14px rgb(0 0 0 / 0.25);
+  }
+  .fv-needs { opacity: 0.75; filter: grayscale(0.4); }
+  .fv-needs.ready { opacity: 1; filter: none; border-color: var(--color-leaf-500); box-shadow: 0 0 0 3px rgb(120 204 69 / 0.45), 0 6px 14px rgb(0 0 0 / 0.25); animation: fv-bob 1.2s ease-in-out infinite; }
+  .fv-hungry { border-color: #d04a4a; animation: fv-pulse 1s ease-in-out infinite; }
+  .fv-grass {
+    display: block;
+    width: 1.3em;
+    height: 1.1em;
+    background:
+      linear-gradient(100deg, transparent 42%, #3f9a3a 43% 55%, transparent 56%) 0 0 / 40% 100% no-repeat,
+      linear-gradient(90deg, transparent 42%, #4fb03f 43% 57%, transparent 58%) 50% 0 / 40% 100% no-repeat,
+      linear-gradient(80deg, transparent 44%, #3f9a3a 45% 57%, transparent 58%) 100% 0 / 40% 100% no-repeat;
+  }
+  .fv-spoil {
+    width: clamp(2.2rem, 4vw, 3.4rem);
+    height: clamp(1.1rem, 2vw, 1.7rem);
+    border-radius: 50%;
+    border: 3px solid rgb(255 255 255 / 0.25);
+    background: conic-gradient(rgb(255 90 122 / 0.75) calc(var(--p, 1) * 360deg), transparent 0);
+    mask: radial-gradient(closest-side, transparent 68%, #000 70%);
+  }
+  .fv-spoil.urgent { animation: fv-pulse 0.4s ease-in-out infinite; }
+  .fv-hp { display: inline-flex; gap: 3px; padding: 3px 5px; border-radius: 999px; background: rgb(40 24 8 / 0.6); }
+  .fv-hp i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: rgb(255 255 255 / 0.25); }
+  .fv-hp i.on { background: #ff5a7a; box-shadow: 0 0 6px #ff5a7a; }
+  .fv-drops { display: inline-flex; gap: 3px; padding: 4px 6px; border-radius: 999px; background: rgb(255 255 255 / 0.85); border: 2px solid rgb(26 138 192 / 0.5); }
+  .fv-drops i {
+    width: 0.62rem;
+    height: 0.78rem;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: rgb(26 138 192 / 0.18);
+    clip-path: polygon(50% 0, 100% 62%, 85% 92%, 50% 100%, 15% 92%, 0 62%);
+  }
+  .fv-drops i.on { background: radial-gradient(circle at 35% 55%, #c8f0ff, #3fb4f0 60%, #1a8ac0); }
+  .fv-drops.empty { border-color: #ff5a7a; animation: fv-pulse 0.8s ease-in-out infinite; }
+  .fv-bar { display: inline-flex; align-items: center; gap: 4px; width: clamp(3.5rem, 7vw, 6rem); height: 0.75rem; padding: 2px; border-radius: 999px; background: rgb(40 24 8 / 0.75); }
+  .fv-bar span { display: block; height: 100%; min-width: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--color-leaf-500), var(--color-leaf-300)); transition: width 0.15s linear; }
+  .fv-bar.water span { background: linear-gradient(90deg, #1a8ac0, #8fd8ff); }
+  .fv-bar b { position: absolute; right: -1.8em; font-size: 0.8rem; color: var(--color-sun-200); text-shadow: 0 1px 2px #000; }
+  .fv-tapme { padding: 0.2em; border-radius: 50%; background: #ffe14d; border: 2px solid #4e2e14; animation: fv-pulse 0.8s ease-in-out infinite; }
 
   .chip {
     display: inline-flex;

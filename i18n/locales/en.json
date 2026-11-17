@@ -149,7 +149,8 @@
     "gift": "Ta gave you a chicken!",
     "goalDone": "Done!",
     "buy": "Buy {name} for {n} coins",
-    "shop": "Buy animals"
+    "shop": "Buy animals",
+    "noWebgl": "This device can't show the 3D farm (WebGL is off or not supported)."
   },
   "hints": {
     "collect": "Tap the eggs to put them in the barn.",
@@ -260,12 +261,8 @@
     "resetConfirm": "Erase all stars and levels on this device? This can't be undone.",
     "resetDo": "Erase",
     "cancel": "Cancel",
-    "privacy": "Your progress stays on this device."
-  },
-  "rotate": {
-    "title": "Turn your phone sideways",
-    "text": "The farm is wide: it's much easier to play in landscape.",
-    "anyway": "Play anyway"
+    "privacy": "Your progress stays on this device.",
+    "hd": "High-quality graphics"
   },
   "pwa": {
     "install": "Install",

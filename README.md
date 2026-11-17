@@ -3,8 +3,8 @@
 A farm time-management game set in a Khmer village: water the grass, raise chickens, ducks and cows,
 turn their eggs and milk into cakes, salted eggs, yogurt and desserts, and send the tuk-tuk to market
 to fill each order. **150 levels in six worlds**, from the village to the Water Festival, with a short
-story between worlds and cheeky monkeys to chase off. All the art is drawn in code from the game's own
-vector sprites.
+story between worlds and cheeky monkeys to chase off. All the art is 3D, built in code: no image or model
+files.
 
 - **Khmer and English**: Khmer by default, with Khmer digits.
 - **Made for phones**: tap the pen to water grass, tap goods to collect them, tap workshops to make
@@ -17,7 +17,7 @@ vector sprites.
 - **Plays inside the [gaming gateway](https://github.com/KheangLov/gaming-gateway)**, loaded with
   Module Federation (`modules/gateway-remote/`, the same folder as in the other games).
 
-Built with Nuxt 4, Nuxt UI and [Motion for Vue](https://motion.dev/docs/vue) for interface animation,
+Built with Nuxt 4, Nuxt UI, [three.js](https://threejs.org) and [Motion for Vue](https://motion.dev/docs/vue) for interface animation,
 on the same base as [garden-guard](https://github.com/KheangLov/garden-guard).
 
 ## How it's built
@@ -26,9 +26,15 @@ on the same base as [garden-guard](https://github.com/KheangLov/garden-guard).
   stepped at a fixed 60 steps a second, emits events (goods dropped and collected, the tuk-tuk back,
   monkeys chased off) that drive the effects, sounds and top bar. Deterministic, so tests play whole
   levels.
-- **The farm is one canvas** (`app/game/renderer.ts`): each sprite is drawn once per screen size into a
-  bitmap and copied each frame; the yard, fence and decorations are one cached bitmap; particles live
-  in a fixed pool; the canvas has no alpha channel and a pixel budget.
+- **The farm is real 3D, in plain three.js** (`app/game/three/`): a sunny yard seen from above at an
+  angle, with soft shadows and shaded models of every animal, good and building, all built from
+  shapes in code (`models.ts`) with textures painted in code (no files to download, so it works
+  offline). The camera fits the farm to any screen and turns it to stand upright on phones held
+  that way. Labels (the barn's count, prices, timers) are HTML laid over the canvas; taps are turned
+  back into board points for the engine. Everything that never moves is merged into a few meshes.
+  Settings → high-quality graphics turns shadows and sharp pixels off for older phones.
+- **The interface uses the same models**: each is rendered once into a picture (`icons.ts`) for the
+  shop, the order, the market and the story; the menus have the farm turning slowly behind them.
 - **Vue stays out of the frame loop**: the top bar's values update only when they change.
 - **Sound and music are synthesised** with Web Audio: no audio files to download.
 
