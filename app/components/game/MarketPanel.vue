@@ -59,7 +59,7 @@ function send() {
     :animate="{ x: 0, opacity: 1 }"
     :exit="reduced ? undefined : { x: 60, opacity: 0 }"
     :transition="{ type: 'spring', stiffness: 320, damping: 28 }"
-    class="glass absolute inset-y-1 end-1 z-30 flex w-[min(22rem,92%)] flex-col gap-3 overflow-y-auto p-3"
+    class="glass absolute top-[calc(var(--hud-top,0px)+0.25rem)] bottom-[calc(var(--hud-bottom,0px)+0.25rem)] end-[calc(0.25rem+var(--safe-right))] z-30 flex w-[min(22rem,92%)] flex-col gap-3 overflow-y-auto p-3"
     role="dialog"
     :aria-label="t('market.title')"
     @pointerdown.stop

@@ -75,6 +75,9 @@ export class FarmView {
   private shake = 0
   private width = 1
   private height = 1
+  /** Screen space covered by the floating top and bottom buttons (CSS px): the farm fits between. */
+  private insetTop = 0
+  private insetBottom = 0
   private ray = new Raycaster()
   private v = new Vector3()
   private m4 = new Matrix4()
@@ -391,12 +394,39 @@ export class FarmView {
   }
 
   /**
-   * Places the camera so the whole board (and the buildings behind it) just fits. On a screen
-   * taller than wide, it looks along the board instead, so the farm's long side runs up the screen.
+   * The floating buttons along the top and bottom (CSS px). The picture still fills the screen,
+   * edge to edge, but the farm is fitted into the space between them, so none of it is hidden.
+   */
+  setInsets(top: number, bottom: number) {
+    const t = Math.max(0, top)
+    const b = Math.max(0, bottom)
+    if (t === this.insetTop && b === this.insetBottom) return
+    this.insetTop = t
+    this.insetBottom = b
+    this.fit()
+  }
+
+  /**
+   * Places the camera so the whole board (and the buildings behind it) just fits, between the
+   * floating buttons. On a screen taller than wide, it looks along the board instead, so the
+   * farm's long side runs up the screen.
    */
   private fit() {
     const pitch = this.scenic ? 0.5 : 0.7
-    const tall = this.camera.aspect < 0.95
+    // Keep at least half the screen for the farm, whatever the buttons say.
+    const covered = Math.min(this.insetTop + this.insetBottom, this.height * 0.5)
+    const scale = this.insetTop + this.insetBottom > 0 ? covered / (this.insetTop + this.insetBottom) : 0
+    const top = this.insetTop * scale
+    const bottom = this.insetBottom * scale
+    // Move the picture so the farm's centre sits in the middle of the space between the buttons.
+    if (top || bottom) this.camera.setViewOffset(this.width, this.height, 0, (bottom - top) / 2, this.width, this.height)
+    else this.camera.clearViewOffset()
+    // That space, in the screen's -1..1 units.
+    const lowY = -1 + 2 * bottom / this.height
+    const highY = 1 - 2 * top / this.height
+    const midY = (lowY + highY) / 2
+    const halfY = (highY - lowY) / 2
+    const tall = this.width / Math.max(1, this.height - top - bottom) < 0.95
     const yaw = (tall ? Math.PI / 2 : 0) + this.yaw
     const target = new Vector3(tall ? 0.3 : 0, 0, tall ? 0 : 0.35)
     const dir = new Vector3(Math.cos(pitch) * Math.sin(yaw), Math.sin(pitch), Math.cos(pitch) * Math.cos(yaw))
@@ -415,7 +445,7 @@ export class FarmView {
       const edge = this.scenic ? 0.8 : 0.97
       const ok = pts.every((p) => {
         const s = p.clone().project(this.camera)
-        return Math.abs(s.x) <= edge && Math.abs(s.y) <= edge
+        return Math.abs(s.x) <= edge && Math.abs(s.y - midY) <= edge * halfY
       })
       if (ok) hi = d
       else lo = d

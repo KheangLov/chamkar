@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
- * The board: the 3D farm filling the space it's given, the game loop, and touch/mouse input. The
- * loop steps the engine at a fixed 60 steps a second, however fast the screen refreshes, and draws
+ * The board: the 3D farm filling the space it's given (the whole screen, under the floating
+ * buttons), the game loop, and touch/mouse input. The loop steps the engine at a fixed 60 steps a second, however fast the screen refreshes, and draws
  * once per screen frame. Taps are turned into board points by the view (app/game/three/farm.ts).
  */
 import { STEP, type Engine, type GameEvent, type TapResult } from '#shared/game'
@@ -17,6 +17,9 @@ const props = defineProps<{
   onEvents: (events: GameEvent[]) => void
   /** Every frame, after the game moved on (to update the top bar without Vue). */
   onFrame?: () => void
+  /** Height of the floating buttons along the top and bottom (px): the farm fits between them. */
+  insetTop?: number
+  insetBottom?: number
 }>()
 
 const { locale, t } = useI18n()
@@ -35,6 +38,7 @@ let hover: Hover | null = null
 watch(() => props.paused, () => {
   last = performance.now()
 })
+watch(() => [props.insetTop, props.insetBottom], () => view?.setInsets(props.insetTop ?? 0, props.insetBottom ?? 0))
 watch(reduced, (r) => {
   if (view) view.reducedMotion = r
 })
@@ -43,6 +47,7 @@ function fit() {
   const el = wrap.value
   if (!el || !view) return
   const box = el.getBoundingClientRect()
+  view.setInsets(props.insetTop ?? 0, props.insetBottom ?? 0)
   view.resize(Math.max(1, Math.floor(box.width)), Math.max(1, Math.floor(box.height)), window.devicePixelRatio || 1)
 }
 
@@ -131,7 +136,7 @@ defineExpose({ flush })
 <template>
   <div
     ref="wrap"
-    class="relative size-full overflow-hidden rounded-xl shadow-[0_10px_40px_rgb(0_0_0/0.45)]"
+    class="relative size-full overflow-hidden"
   >
     <canvas
       ref="canvas"

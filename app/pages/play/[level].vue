@@ -32,6 +32,24 @@ const marketOpen = ref(false)
 const settingsOpen = ref(false)
 const fullscreen = useFullscreen()
 const board = ref<InstanceType<typeof GameBoard> | null>(null)
+// The buttons float over the farm; their heights tell the farm how to fit between them.
+const topBar = ref<HTMLElement | null>(null)
+const bottomBar = ref<HTMLElement | null>(null)
+const insets = reactive({ top: 0, bottom: 0 })
+let barObserver: ResizeObserver | null = null
+function measureBars() {
+  insets.top = topBar.value?.offsetHeight ?? 0
+  insets.bottom = bottomBar.value?.offsetHeight ?? 0
+}
+watch([topBar, bottomBar], ([top, bottom]) => {
+  barObserver?.disconnect()
+  if (!import.meta.client || (!top && !bottom)) return
+  barObserver ??= new ResizeObserver(measureBars)
+  if (top) barObserver.observe(top)
+  if (bottom) barObserver.observe(bottom)
+  measureBars()
+})
+onBeforeUnmount(() => barObserver?.disconnect())
 
 // Top bar values (updated from the frame loop only when they change).
 const hud = reactive({ coins: 0, coinBump: 0, time: 0, goals: [] as { have: number, need: number }[], truckAway: false, truckT: 0, version: 0, animals: 0 })
@@ -357,8 +375,11 @@ onBeforeUnmount(() => {
     </div>
 
     <template v-if="engine && (phase === 'playing' || phase === 'result' || phase === 'storyOutro')">
-      <!-- Top bar: pause, coins, the order, the clock. -->
-      <header class="flex shrink-0 items-center gap-2 px-[calc(0.5rem+var(--safe-left))] pe-[calc(0.5rem+var(--safe-right))] pt-[calc(0.4rem+var(--safe-top))] pb-1 sm:gap-3">
+      <!-- Floating over the farm, top: pause, coins, the order, the clock. Only the buttons take taps. -->
+      <header
+        ref="topBar"
+        class="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center gap-2 px-[calc(0.5rem+var(--safe-left))] pe-[calc(0.5rem+var(--safe-right))] pt-[calc(0.4rem+var(--safe-top))] pb-1 sm:gap-3 [&>*]:pointer-events-auto"
+      >
         <button
           type="button"
           class="btn-icon shrink-0"
@@ -390,7 +411,7 @@ onBeforeUnmount(() => {
           </motion.span>
         </div>
         <ul
-          class="flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto py-1 [scrollbar-width:none]"
+          class="pointer-events-none! flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto py-1 [scrollbar-width:none] [&>*]:pointer-events-auto"
           :aria-label="t('briefing.order')"
         >
           <li
@@ -432,9 +453,14 @@ onBeforeUnmount(() => {
         </div>
       </header>
 
-      <main class="relative min-h-0 flex-1 px-[calc(0.5rem+var(--safe-left))] pe-[calc(0.5rem+var(--safe-right))]">
+      <main
+        class="absolute inset-0"
+        :style="{ '--hud-top': `${insets.top}px`, '--hud-bottom': `${insets.bottom}px` }"
+      >
         <GameBoard
           ref="board"
+          :inset-top="insets.top"
+          :inset-bottom="insets.bottom"
           :engine="engine"
           :paused="paused || phase !== 'playing'"
           :on-tap="onTap"
@@ -486,7 +512,7 @@ onBeforeUnmount(() => {
             :initial="reduced ? false : { y: 30, opacity: 0 }"
             :animate="{ y: 0, opacity: 1 }"
             :exit="{ y: 30, opacity: 0 }"
-            class="pointer-events-none absolute inset-x-0 bottom-3 mx-auto flex w-fit max-w-[90%] items-center gap-2 rounded-2xl bg-sun-300 px-4 py-2 font-semibold text-sun-950 shadow-xl"
+            class="pointer-events-none absolute inset-x-0 bottom-[calc(var(--hud-bottom)+0.75rem)] mx-auto flex w-fit max-w-[90%] items-center gap-2 rounded-2xl bg-sun-300 px-4 py-2 font-semibold text-sun-950 shadow-xl"
             role="status"
           >
             <UIcon
@@ -498,10 +524,13 @@ onBeforeUnmount(() => {
         </AnimatePresence>
       </main>
 
-      <!-- The shop: animals to buy, and the market. -->
-      <footer class="flex shrink-0 items-center gap-2 px-[calc(0.5rem+var(--safe-left))] pe-[calc(0.5rem+var(--safe-right))] pt-1.5 pb-[calc(0.4rem+var(--safe-bottom))]">
+      <!-- Floating over the farm, bottom: animals to buy, and the market. Only the buttons take taps. -->
+      <footer
+        ref="bottomBar"
+        class="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-center gap-2 px-[calc(0.5rem+var(--safe-left))] pe-[calc(0.5rem+var(--safe-right))] pt-1.5 pb-[calc(0.4rem+var(--safe-bottom))] [&>*]:pointer-events-auto"
+      >
         <div
-          class="-my-1 flex min-w-0 items-center gap-2 overflow-x-auto py-1 [scrollbar-width:none]"
+          class="pointer-events-none! -my-1 flex min-w-0 items-center gap-2 overflow-x-auto py-1 [scrollbar-width:none] [&>*]:pointer-events-auto"
           role="toolbar"
           :aria-label="t('game.shop')"
         >
@@ -527,7 +556,7 @@ onBeforeUnmount(() => {
             </span>
           </button>
         </div>
-        <span class="ms-auto hidden text-sm font-semibold text-moss-300 sm:inline">{{ t(`worlds.${world.id}.name`) }} · {{ label }}</span>
+        <span class="ms-auto hidden rounded-full bg-moss-950/70 px-3 py-1 text-sm font-semibold text-moss-200 sm:inline">{{ t(`worlds.${world.id}.name`) }} · {{ label }}</span>
         <button
           type="button"
           class="shop-card market ms-auto shrink-0 sm:ms-0"
