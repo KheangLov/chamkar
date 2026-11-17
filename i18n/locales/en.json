@@ -1,0 +1,278 @@
+{
+  "app": {
+    "title": "Chamkar",
+    "subtitle": "A Khmer village farm",
+    "tagline": "Raise animals, make treats and send them to market, across 150 levels."
+  },
+  "home": {
+    "allGames": "All games",
+    "start": "Start farming",
+    "continue": "Continue {level}",
+    "levels": "Levels",
+    "settings": "Settings",
+    "stars": "{n} of {total} stars",
+    "cleared": "{n} of {total} levels",
+    "allDone": "Every level done! Go back for three stars.",
+    "howTitle": "How to play",
+    "how1": "Tap the pen to water the grass. Animals eat it, then lay eggs or give milk.",
+    "how2": "Tap goods to put them in the barn. Workshops turn them into treats.",
+    "how3": "Send the tuk-tuk to market for coins, and fill each order fast for three stars."
+  },
+  "map": {
+    "title": "Levels",
+    "back": "Back",
+    "world": "World {n}",
+    "locked": "Locked",
+    "worldLocked": "Finish world {n} to open",
+    "story": "Story",
+    "level": "Level {label}",
+    "stars": "{n} of 3 stars"
+  },
+  "worlds": {
+    "village": {
+      "name": "The Village",
+      "blurb": "Grandpa Ta's yard, a few hens and plenty of sunshine."
+    },
+    "ricefield": {
+      "name": "Rice Fields",
+      "blurb": "Ducks paddle by the paddies. Watch out for monkeys!"
+    },
+    "riverside": {
+      "name": "Riverside",
+      "blurb": "Cows graze by the river, and the dairy opens."
+    },
+    "temple": {
+      "name": "Temple Hills",
+      "blurb": "Pilgrims love sweet desserts, and so do the temple monkeys."
+    },
+    "palmgrove": {
+      "name": "Palm Grove",
+      "blurb": "Dry season: grass grows slowly and the well is slow to fill."
+    },
+    "festival": {
+      "name": "Water Festival",
+      "blurb": "The whole country comes to town. Big orders, fast!"
+    }
+  },
+  "kinds": {
+    "festival": "Festival order",
+    "rush": "Rush",
+    "raid": "Monkey raid"
+  },
+  "items": {
+    "egg": "Eggs",
+    "duckegg": "Duck eggs",
+    "milk": "Milk",
+    "cake": "Cakes",
+    "saltegg": "Salted eggs",
+    "yogurt": "Yogurt",
+    "dessert": "Desserts"
+  },
+  "animals": {
+    "chicken": "chickens",
+    "duck": "ducks",
+    "cow": "cows"
+  },
+  "goals": {
+    "item": "Collect {n}: {name}",
+    "animal": "Have {n} {name}",
+    "coins": "Earn {n} coins at the market"
+  },
+  "news": {
+    "chicken": {
+      "name": "Chickens",
+      "text": "Feed them grass and they lay eggs. Tap the eggs before they spoil."
+    },
+    "duck": {
+      "name": "Ducks",
+      "text": "Ducks lay duck eggs, worth almost twice a hen's."
+    },
+    "cow": {
+      "name": "Cows",
+      "text": "Cows give milk. They're slow, but milk sells well."
+    },
+    "bakery": {
+      "name": "Bakery",
+      "text": "Tap the empty plot to build it, then tap it to bake eggs into cakes."
+    },
+    "saltjar": {
+      "name": "Salt jars",
+      "text": "Duck eggs soak in salty water and come out as salted eggs."
+    },
+    "dairy": {
+      "name": "Dairy",
+      "text": "Turns milk into yogurt."
+    },
+    "stall": {
+      "name": "Dessert stall",
+      "text": "Each dessert needs a cake and a yogurt. The finest thing on the farm."
+    },
+    "monkey": {
+      "name": "Monkeys",
+      "text": "They sneak in to steal goods and eat the grass. Tap them until they run off."
+    },
+    "truck": {
+      "name": "The tuk-tuk",
+      "text": "Tap the tuk-tuk or the barn, load goods, and send them to market for coins."
+    },
+    "dry": {
+      "name": "Dry season",
+      "text": "Watering grows less grass, and the well takes longer to fill."
+    },
+    "festival": {
+      "name": "Water Festival",
+      "text": "Bigger orders and a faster tuk-tuk. More monkeys, too."
+    }
+  },
+  "briefing": {
+    "order": "The order",
+    "new": "New!",
+    "farm": "Your farm",
+    "coins": "{n} coins to start",
+    "water": "The well holds {n} buckets",
+    "barn": "The barn holds {n} goods",
+    "monkeys": "Monkeys about: {n} taps chase one off",
+    "start": "Start"
+  },
+  "game": {
+    "board": "The farm",
+    "pause": "Pause",
+    "coins": "Coins",
+    "time": "Time",
+    "go": "Let's farm!",
+    "noWater": "The well is empty!",
+    "barnFull": "The barn is full: sell something!",
+    "noCoins": "Not enough coins",
+    "noInput": "Needs {name} in the barn",
+    "tooMany": "The pen is full",
+    "monkey": "Monkey! Tap it away!",
+    "gift": "Ta gave you a chicken!",
+    "goalDone": "Done!",
+    "buy": "Buy {name} for {n} coins",
+    "shop": "Buy animals"
+  },
+  "hints": {
+    "collect": "Tap the eggs to put them in the barn.",
+    "water": "Hungry hens? Tap the pen to water the grass.",
+    "well": "Out of water? Tap the well to fill it.",
+    "buy": "Buy chickens at the bottom of the screen.",
+    "build": "Tap the empty plot to build the bakery.",
+    "bake": "Collect eggs, then tap the bakery to bake a cake.",
+    "truck": "Tap the tuk-tuk, load goods and send them to market."
+  },
+  "market": {
+    "title": "Tuk-tuk to market",
+    "short": "Market",
+    "close": "Close",
+    "barn": "In the barn",
+    "loadAll": "Load all",
+    "barnEmpty": "The barn is empty. Collect goods in the pen.",
+    "loadOne": "Load one: {name}",
+    "truck": "On the tuk-tuk",
+    "truckEmpty": "Tap goods above to load them.",
+    "unload": "Take one off: {name}",
+    "send": "Go!",
+    "away": "Back in {n} s",
+    "awayText": "The tuk-tuk is at the market. The coins come when it's back."
+  },
+  "pause": {
+    "title": "Paused",
+    "resume": "Resume",
+    "restart": "Restart",
+    "quit": "Levels"
+  },
+  "result": {
+    "won": "Order filled!",
+    "within": "Within {time}",
+    "next": "Next",
+    "replay": "Play again",
+    "levels": "Levels",
+    "worldDone": "World {n} done!",
+    "theEnd": "Every festival served!",
+    "nextNew": "Next up: {name}"
+  },
+  "story": {
+    "skip": "Skip",
+    "next": "Next",
+    "done": "To the farm!",
+    "names": {
+      "srey": "Srey",
+      "ta": "Ta",
+      "sva": "Sva"
+    },
+    "village": {
+      "intro": {
+        "0": "Srey! You're home from the city. The farm has missed you, and so have I.",
+        "1": "Ta, I want to help. Let's make this the best farm in the village!",
+        "2": "Then start with the hens. Water the grass, and they'll lay for you.",
+        "3": "And whatever we don't need, the tuk-tuk takes to market!"
+      }
+    },
+    "ricefield": {
+      "intro": {
+        "0": "The rice is green as far as I can see. Ducks would love it here.",
+        "1": "Duck eggs make salted eggs, everyone's favourite with rice porridge.",
+        "2": "Hee hee! Eggs lying about? Nobody will miss one or two...",
+        "3": "That's Sva, the cheekiest monkey around. Tap him till he runs!"
+      }
+    },
+    "riverside": {
+      "intro": {
+        "0": "By the river the grass grows thick. Time for cows.",
+        "1": "Milk, and then yogurt from the dairy. The market will love it.",
+        "2": "Cows are slow, but patient farmers do well."
+      }
+    },
+    "temple": {
+      "intro": {
+        "0": "Pilgrims climb the hill every day. They'll want something sweet.",
+        "1": "A dessert stall! Cake and yogurt in one glass, like my mother made.",
+        "2": "The temple is MY hill. And now it has desserts. Hee hee!"
+      }
+    },
+    "palmgrove": {
+      "intro": {
+        "0": "The dry season is here. Every bucket counts.",
+        "1": "Then I'll water where the animals are, not everywhere.",
+        "2": "Clever girl. The palms give shade, and the well never quite runs dry."
+      }
+    },
+    "festival": {
+      "intro": {
+        "0": "The Water Festival! Boats on the river and crowds everywhere.",
+        "1": "Big orders, Srey. Keep the tuk-tuk busy.",
+        "2": "So many treats, so little time. My whole family is coming!"
+      },
+      "outro": {
+        "0": "Every order filled. Srey, this is the finest farm in the land.",
+        "1": "Fine, fine. Maybe... next time I could just ask?",
+        "2": "Ask nicely, Sva, and there's always a banana for you. Happy Water Festival!"
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "sound": "Sound effects",
+    "music": "Music",
+    "haptics": "Vibration",
+    "reset": "Erase progress",
+    "resetConfirm": "Erase all stars and levels on this device? This can't be undone.",
+    "resetDo": "Erase",
+    "cancel": "Cancel",
+    "privacy": "Your progress stays on this device."
+  },
+  "rotate": {
+    "title": "Turn your phone sideways",
+    "text": "The farm is wide: it's much easier to play in landscape.",
+    "anyway": "Play anyway"
+  },
+  "pwa": {
+    "install": "Install",
+    "offlineReady": "Ready to play offline",
+    "iosTitle": "Install on iPhone or iPad",
+    "iosStep1": "In Safari, tap the Share button",
+    "iosStep2": "Choose “Add to Home Screen”, then “Add”.",
+    "update": "A new version is ready"
+  }
+}
